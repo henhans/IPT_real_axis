@@ -1,3 +1,5 @@
+/* DMFT with IPT solver on real axis based on Dr. Haule's lecture materials.   
+                                                   07/16/2014 Tsung-Han Lee */
 #include "init.h"
 #include "pt.h"
 #include <stdio.h>
@@ -28,7 +30,7 @@ int main(int argc, char* argv[])
   for( int it=0; it< Nit; it++)   
   { 
     Pt.get_sig();
-    double diff = Pt.get_diff();
+    double diff = Pt.get_diff(); //calculate difference
     //cout << diff <<endl;
 
     // mixing solutions
@@ -40,7 +42,7 @@ int main(int argc, char* argv[])
     Pt.mix_sig(mix);
     printf("it= %i \t diff= %f \t mix= %f \n", it, diff, mix);
 
-    Pt.get_G_G0();
+    Pt.get_G_G0(); // calculate Green's functions
   }
 
   Pt.printdata("ipt.dat"); 

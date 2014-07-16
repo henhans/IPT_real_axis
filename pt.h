@@ -1,3 +1,4 @@
+/* class for perturbation calculations 07/16/2014 Tsung-Han Lee*/
 #include <complex>
 //#include "init.h"
 
@@ -10,11 +11,11 @@ class pt
   public:
   pt(init Init);
 
-  void get_sig();
-  void mix_sig(double mix);
-  double get_diff();
-  void get_G_G0();  
-  void printdata(const char* filename);
+  void get_sig(); // calculate self energy
+  void mix_sig(double mix); //mixing self energy
+  double get_diff(); // calculate self energy difference betwen consecutive iterations
+  void get_G_G0(); // calculate Green's function G and G0
+  void printdata(const char* filename); // print out all datas
 
   double* omega;
   double* fermi;
