@@ -11,3 +11,6 @@ main.exe: $(OBJECTS)
 
 %.o : %.cpp
 	$(CC) $(CFLAGS) -c $< 
+
+clean: 
+	rm -f *.o
