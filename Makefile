@@ -1,16 +1,16 @@
-CC = g++ 
-CFLAGS = #-O3
-LFLAGS = #
+CC = icpc#mpicxx#icpc
+FLAGS = -D_OMP -openmp
+#LFLAGS = #
 OBJECTS = init.o routines.o pt.o main.o
 
 #output.txt: main.exe
 #	./main.exe > output.txt
 
 main.exe: $(OBJECTS)
-	$(CC) $(LFLAGS) $(OBJECTS) -o main.exe
+	$(CC) $(FLAGS) $(OBJECTS) -o main.exe
 
 %.o : %.cpp
-	$(CC) $(CFLAGS) -c $< 
+	$(CC) $(FLAGS) -c -o $@ $< 
 
 clean: 
 	rm -f *.o
