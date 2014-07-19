@@ -6,6 +6,10 @@
 #include <stdio.h>
 #include <stdlib.h>
 
+#ifdef _OMP
+#include <omp.h>
+#endif
+
 using namespace std;
 
 pt::pt( init Init )
@@ -50,6 +54,7 @@ void pt::get_sig()
 
    double dh= omega[1]-omega[0];
 
+   #pragma omp parallel for
    for (int ix=0; ix<Nw; ix++)
    {
      double sum1=0;
@@ -71,6 +76,7 @@ void pt::get_sig()
      P2[ix] = sum2*dh;
    }
 
+   #pragma omp parallel for 
    for (int ix=0; ix<Nw; ix++)
    {
      double sum1=0;
@@ -96,7 +102,7 @@ void pt::get_sig()
 
    for(int i=0; i<Nw; i++)
    {
-     sigma_new[i] = rsig[i] + isig[i]*(1j);
+     sigma_new[i] = rsig[i] + isig[i]*(0.0+1.0j);
      //printf("%f \t %f \t %f \n", omega[i], real(sigma_new[i]), imag(sigma_new[i]));
    }
    
@@ -118,11 +124,12 @@ double pt::get_diff()
     diff[i] = abs(sigma_new[i] -sigma[i] );
   }
   
-  return TrapezIntegral( Nw , diff , omega ); 
+  return TrapezIntegralMP( Nw , diff , omega ); 
 }
 
 void pt::get_G_G0()
 {
+  #pragma omp parallel for
   for( int i=0; i<Nw; i++)
     G[i] = Hilbert(Nw, omega[i]-sigma[i], omega, DOS);
 

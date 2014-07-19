@@ -341,6 +341,7 @@ double TrapezIntegralMP(int N, double Y[], double X[])
   double* psum = new double[8];
   #pragma omp parallel shared(psum)
   { Nt = omp_get_num_threads();
+    //cout << "Nt=" <<Nt<<endl;
     int tid = omp_get_thread_num();
     psum[tid] = 0;
     for (int i=tid+1; i<N-1; i+=Nt)
@@ -352,10 +353,11 @@ double TrapezIntegralMP(int N, double Y[], double X[])
      //printf("outside proc %d, psum = %le\n",i,psum[i]);
   }
   delete [] psum;
+  //cout << "mpi" <<endl;
   return sum*0.5;
 
 #else
-
+  //cout<< "no mpi" <<endl
   return TrapezIntegral(N,Y,X);
 
 #endif
@@ -383,7 +385,9 @@ complex<double> TrapezIntegralMP(int N, complex<double> Y[], double X[])
 
 #else
 
+  //cout<< "no mpi" <<endl;
   return TrapezIntegral(N,Y,X);
+  
 
 #endif
 
@@ -525,7 +529,7 @@ void KramarsKronig( int N, double w[], double imf[], double ref[])
     for ( int i=1; i< (N-1) ; i++)
         deriv[i] = (imf[i+1]-imf[i-1])/(2*dh);
 
-
+    //#pragma omp parallel for
     for (int i=0; i<N; i++)
     {
       double sum1=0;

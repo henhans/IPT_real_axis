@@ -1,5 +1,7 @@
 /* initialize  the omega grids and all the basic function such as fermi function
    semicircle density of state.                    07/16/2014 Tsung-Han        */
+#ifndef INIT_
+#define INIT_
 #include <complex>
 
 using namespace std;
@@ -27,3 +29,5 @@ class init
   double gamma; // brodening pole
 
 };
+
+#endif

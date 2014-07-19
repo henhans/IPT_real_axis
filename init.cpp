@@ -6,6 +6,10 @@
 #include <stdio.h>
 #include <stdlib.h>
 
+#ifdef _OMP
+#include <omp.h>
+#endif
+
 using namespace std;
 
 init::init( int Nw_in, double Lw_in, double U_in, double T_in, double gamma_in )

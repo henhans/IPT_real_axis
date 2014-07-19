@@ -1,6 +1,9 @@
 /* class for perturbation calculations 07/16/2014 Tsung-Han Lee*/
+
+#ifndef PT_
+#define PT_
 #include <complex>
-//#include "init.h"
+#include "init.h"
 
 using namespace std;
 
@@ -39,3 +42,5 @@ class pt
   double T; // temperature
 
 };
+
+#endif
